@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>听指令的小方块</title>
+		<link rel="stylesheet" type="text/css" href="css/box.css"/>
+	</head>
+	<body onload="load()">
+		<div class="g-pnl">
+			<p class="title">听指令的小方块1</p>
+			<div class="floor">
+				<div class="box" id="box"></div>
+			</div>
+			<div class="ctrl-pnl">
+				<input type="text" id="input" />
+				<button type="button" id="submit">执行</button>
+			</div>
+		</div>
+	</body>
+
+	<script>
+		function load() {
+			var input = document.querySelector("#input");
+			var submit = document.querySelector("#submit");
+			var box = {
+									el: document.querySelector("#box"),
+									rotate: 0, // 旋转角度
+									direction: 0, // 方向  | 0: 上 | 1: 右 | 2: 下 | 3: 左 |
+									timer: "",
+									animateFlag: false
+								}
+			var onSubmit = function() {
+				if(!box.animateFlag) {
+					switch(input.value) {
+						case "GO":
+							var top = box.el.offsetTop;
+							var left = box.el.offsetLeft;
+							box.animateFlag = true;
+							box.direction = box.rotate < 0 ? (4 + (box.rotate / 90) % 4) : ((box.rotate / 90) % 4); // 确定方向
+							switch(box.direction) {
+								case 0: // 向上移动
+									if(top <= 0) {
+										alert("碰到墙壁了！");
+									} else {
+										box.el.style.top = top - 50 + "px";
+									}
+									break;
+								case 1: // 向右移动
+									if(left >= 450) {
+										alert("碰到墙壁了！");
+									} else {
+										box.el.style.left = left + 50 + "px";
+									}
+									break;
+								case 2: // 向下移动
+									if(top >= 450) {
+										alert("碰到墙壁了！");
+									} else {
+										box.el.style.top = top + 50 + "px";
+									}
+									break;
+								case 3: // 向左移动
+									if(left <= 0) {
+										alert("碰到墙壁了！");
+									} else {
+										box.el.style.left = left - 50 + "px";
+									}
+									break;
+							}
+							setTimeout(function() {
+								box.animateFlag = false;
+							}, 200);
+							break;
+						case "TUN LEF":
+							box.rotate -= 90;
+							box.el.style.transform = "rotate(" + box.rotate + "deg)";
+							break;
+						case "TUN RIG":
+							box.rotate += 90;
+							box.el.style.transform = "rotate(" + box.rotate + "deg)";
+							break;
+						case "TUN BAC":
+							box.rotate += 180;
+							box.el.style.transform = "rotate(" + box.rotate + "deg)";
+							break;
+						default:
+							alert("输入指令有误！")
+							break;
+					}
+				}
+			}
+
+			input.addEventListener('keydown', function(e) {
+				if(e.which == 13) {
+					onSubmit();
+				}
+			});
+			
+			// 转换大小写
+			input.addEventListener('keyup', function(e) {
+				this.value = this.value.toLocaleUpperCase();
+			});
+			
+			submit.addEventListener('click', function() {
+				onSubmit();
+			});
+
+		}
+	</script>
+</html>
