@@ -36,10 +36,9 @@
 							var top = box.el.offsetTop;
 							var left = box.el.offsetLeft;
 							box.animateFlag = true;
-							box.direction = box.rotate < 0 ? (4 + (box.rotate / 90) % 4) : ((box.rotate / 90) % 4); // 确定方向
 							switch(box.direction) {
 								case 0: // 向上移动
-									if(top == 0) {
+									if(top <= 0) {
 										alert("碰到墙壁了！");
 									} else {
 										box.el.style.top = top - 50 + "px";
@@ -60,7 +59,7 @@
 									}
 									break;
 								case 3: // 向左移动
-									if(left == 0) {
+									if(left <= 0) {
 										alert("碰到墙壁了！");
 									} else {
 										box.el.style.left = left - 50 + "px";
@@ -71,16 +70,20 @@
 								box.animateFlag = false;
 							}, 200);
 							break;
-						case "TUN LEF":
+						case "TUN LEF": // 方向 向左 旋转90deg
 							box.rotate -= 90;
+							box.direction - 1 < 0 ? box.direction = 3 : box.direction--;
 							box.el.style.transform = "rotate(" + box.rotate + "deg)";
 							break;
-						case "TUN RIG":
+						case "TUN RIG": // 方向 向右 旋转90deg
 							box.rotate += 90;
+							box.direction + 1 > 3 ? box.direction = 0 : box.direction++;
 							box.el.style.transform = "rotate(" + box.rotate + "deg)";
 							break;
-						case "TUN BAC":
+						case "TUN BAC": // 方向 向后 旋转90deg
 							box.rotate += 180;
+							box.direction + 1 > 3 ? box.direction = 0 : box.direction++;
+							box.direction + 1 > 3 ? box.direction = 0 : box.direction++;
 							box.el.style.transform = "rotate(" + box.rotate + "deg)";
 							break;
 						default:

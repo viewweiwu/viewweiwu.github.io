@@ -8,16 +8,25 @@ html {
     font-family: "微软雅黑",sans-serif;
 }
 input,
+textarea,
 button,
-a{
+a {
     font-size: inherit;
     font-family: inherit;
 }
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+p {
+    margin: 0;;
+}
 .g-pnl {
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    transform: translate(-50%, -50%);
+    width: 860px;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
     .title {
         height: 50px;
         line-height: 50px;
@@ -36,37 +45,100 @@ a{
             position: absolute;
         }
     }
-    .floor {
-        width: 500px;
-        height: 500px;
-        border: 1px solid #000;
-        background: #fff;
-        background-image: linear-gradient(#ddd 1px,transparent 0), linear-gradient(90deg, #ddd 1px, transparent 0);
-        background-size: 50px 50px;
-        background-position: -1px -1px;
-        position: relative;
-        .box {
-            top: 100px;
-            left: 100px;
-            width: 50px;
+    .left-pnl {
+        float: left;
+        .x-coordinate {
             height: 50px;
-            background-color: #6cf;
-            transition: 200ms;
-            position: absolute;
+            line-height: 50px;
+            padding-left: 50px;
+            position: relative;
+            overflow: hidden;
+            li {
+                width: 50px;
+                height: 100%;
+                float: left;
+                text-align: center;
+            }
         }
-        .box:after {
-            content: "";
-            height: 20%;
-            width: 100%;
-            background-color: #000;
-            position: absolute;
+        .y-coordinate {
+            width: 50px;
+            line-height: 50px;
+            position: relative;
+            overflow: hidden;
+            float: left;
+            li {
+                width: 100%;
+                height: 50px;
+                text-align: center;
+            }
+        }
+        .floor {
+            width: 500px;
+            height: 500px;
+            border: 1px solid #000;
+            margin: 0 auto;
+            background: #fff;
+            background-image: linear-gradient(#ddd 1px,transparent 0), linear-gradient(90deg, #ddd 1px, transparent 0);
+            background-size: 50px 50px;
+            background-position: -1px -1px;
+            position: relative;
+            float: left;
+            .box {
+                top: 100px;
+                left: 100px;
+                width: 50px;
+                height: 50px;
+                background-color: #6cf;
+                transition: 200ms;
+                position: absolute;
+                &:after {
+                    content: "";
+                    height: 20%;
+                    width: 100%;
+                    background-color: #000;
+                    position: absolute;
+                }
+            }
         }
     }
-    .ctrl-pnl {
-        margin: 10px 0;
+    .right-pnl {
+        width: 300px;
+        height: 550px;
+        margin-left: 10px;
         text-align: center;
+        overflow: hidden;
+        position: relative;
+        float: left;
         input[type="text"] {
             border-width: 1px;
+        }
+        .btn-pnl {
+            height: 50px;
+            line-height: 50px;
+        }
+        .code-pnl {
+            height: 500px;
+            color: #fff;
+            background-color: #ccc;
+            overflow: hidden;
+            ul {
+                width: 30px;
+                float: left;
+                position: relative;
+            }
+            li.error {
+                background-color: red;
+            }
+            textarea {
+                width: e('calc(100% - 30px)');
+                height: 100%;
+                margin: 0;
+                border: none;
+                vertical-align: top;
+                color: greenyellow;
+                background-color: #262626;
+                resize: none;
+            }
         }
     }
 }
