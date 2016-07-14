@@ -101,6 +101,23 @@
 					input.addEventListener('keyup', function(e) {
 						this.value = this.value.toLocaleUpperCase();
 					});
+					
+					document.addEventListener("keydown", function(e){
+						switch(e.which){
+							case 37:
+								ctrl.animate("MOV LEF");
+								break;
+							case 38:
+								ctrl.animate("MOV TOP");
+								break;
+							case 39:
+								ctrl.animate("MOV RIG");
+								break;
+							case 40:
+								ctrl.animate("MOV BOT");
+								break;
+						}
+					});
 
 					input.addEventListener('scroll', function(e) {
 						var ul = document.querySelector('.code-pnl ul');
