@@ -69,8 +69,12 @@
 				"init": function() {
 					var submit = document.querySelector("#submit");
 					var refresh = document.querySelector("#refresh");
+					input.value = "TUN BAC\nGO 2\nMOV RIG 3\nHELLO WORLD\nTUN BAC\nTUN LEF\nGO @VIEW\nMOV BOT 5";
+//					input.value = "GO 2";
+					this.onInputValueChange();
 
-					input.addEventListener('input', function() {
+					input.addEventListener('input', function(e) {
+						e.preventDefault();
 						ctrl.onInputValueChange()
 					});
 
@@ -101,6 +105,13 @@
 						}
 						return false;
 					}
+					this.regs = [
+						/^GO(\s+)?(\d+)?$/i,
+						/^GO\s+to\s+(\d+)[,\s+](\d+)$/i,
+						/^TUN\s+(LEF|RIG|BAC)$/i,
+						/^MOV\s+(LEF|TOP|RIG|BOT)(\s+)?(\w+)?$/i,
+						/^TRA\s+(LEF|TOP|RIG|BOT)(\s+)?(\w+)?$/i
+					];
 				},
 				"onInputValueChange": function() {
 					var ul = document.querySelector('.code-pnl ul');
@@ -113,7 +124,8 @@
 				},
 				"submit": function(key) {
 					var eventList = key.split("\n");
-					var command = {};
+					var event = {};
+					this.onInputValueChange();
 					for(var i = 0; i < eventList.length; i++) {
 						(function(i) {
 							setTimeout(function() {
@@ -121,38 +133,42 @@
 								if(eventList[i].replace(/^\s+|\s+$/g, "") == "") {
 									return;
 								}
-
-								command.event = eventList[i].split(" ");
-								command.step = parseInt(command.event.slice(-1), 10); // 取数组最后一个元素
-								command.isSuccess = true;
-
-								if(["TRA", "MOV"].contains(command.event[0]) && ["LEF", "TOP", "RIG", "BOT"].contains(command.event[1])) {
-									command.key = command.event[0] + " " + command.event[1];
-								} else if(command.event[0] == "TUN" && ["LEF", "RIG", "BAC"].contains(command.event[1])) {
-									command.key = command.event[0] + " " + command.event[1];
-								} else if(command.event[0] == "GO") {
-									command.key = command.event[0];
-								} else {
-									command.isSuccess = false;
-								}
-
-								// 判断是否为整数
-								if(command.step % 1 !== 0) {
-									command.isSuccess = false;
-								}
-
-								if(!command.isSuccess) {
-									ctrl.error(i);
-								} else {
-									if(typeof(command.step) == "number" && command.step > 0) {
-										ctrl.animate(command.key, command.step);
-									} else {
-										ctrl.animate(command.key);
+								event = ctrl.parse(eventList[i]);
+								
+								if(event){
+									if(event.step){
+										ctrl.animate(event.key, event.step);
+									}else{
+										ctrl.animate(event.key);
 									}
+								}else{
+									ctrl.error(i);
 								}
 							}, 210 * i);
 						})(i);
 					}
+				},
+				"parse": function(command){
+					var event = {};
+					var match = "";
+					for(var i = 0;i < this.regs.length;i++){
+						match = command.match(this.regs[i]);
+						if(match){
+							if(!isNaN(parseInt(match.slice(-1)))){ // 判断是否包含 步数
+								// 获取步数
+								event.step = parseInt(match.pop());
+								// 获取命令
+								event.key = match[0].replace(event.step,"").replace(/^\s+|\s+$/g, "");
+							}else{
+								// 获取步数
+								event.step = false;
+								// 获取命令
+								event.key = match[0];
+							}
+							return event;
+						}
+					}
+					return false;
 				},
 				"animate": function(key, step) {
 					if(!box.animateFlag) {
@@ -226,7 +242,7 @@
 							break;
 					}
 					if(flag) {
-						alert("碰到墙壁了")
+						console.log("碰到墙壁了")
 					};
 				},
 				"tun": function(drct) {
@@ -269,7 +285,7 @@
 							break;
 					}
 					if(flag) {
-						alert("碰到墙壁了")
+						console.log("碰到墙壁了")
 					};
 				},
 				"move": function(drct, step) {
