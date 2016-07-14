@@ -22,6 +22,16 @@
 					<li>8</li>
 					<li>9</li>
 					<li>10</li>
+					<li>11</li>
+					<li>12</li>
+					<li>13</li>
+					<li>14</li>
+					<li>15</li>
+					<li>16</li>
+					<li>17</li>
+					<li>18</li>
+					<li>19</li>
+					<li>20</li>
 				</ul>
 				<ul class="y-coordinate">
 					<li>1</li>
@@ -34,9 +44,19 @@
 					<li>8</li>
 					<li>9</li>
 					<li>10</li>
+					<li>11</li>
+					<li>12</li>
+					<li>13</li>
+					<li>14</li>
+					<li>15</li>
+					<li>16</li>
+					<li>17</li>
+					<li>18</li>
+					<li>19</li>
+					<li>20</li>
 				</ul>
 				<div class="floor">
-					<div class="box" id="box"></div>
+					<div class="box bot" id="box"></div>
 				</div>
 			</div>
 			<div class="right-pnl ctrl-pnl">
@@ -61,7 +81,7 @@
 			var box = {
 				el: document.querySelector("#box"),
 				rotate: 0, // 旋转角度
-				direction: 0, // 方向  | 0: 上 | 1: 右 | 2: 下 | 3: 左 |
+				direction: 2, // 方向  | 0: 上 | 1: 右 | 2: 下 | 3: 左 |
 				timer: "",
 				animateFlag: false
 			}
@@ -70,7 +90,6 @@
 					var submit = document.querySelector("#submit");
 					var refresh = document.querySelector("#refresh");
 					input.value = "TUN BAC\nGO 2\nMOV RIG 3\nHELLO WORLD\nTUN BAC\nTUN LEF\nGO @VIEW\nMOV BOT 5";
-//					input.value = "GO 2";
 					this.onInputValueChange();
 
 					input.addEventListener('input', function(e) {
@@ -134,32 +153,32 @@
 									return;
 								}
 								event = ctrl.parse(eventList[i]);
-								
-								if(event){
-									if(event.step){
+
+								if(event) {
+									if(event.step) {
 										ctrl.animate(event.key, event.step);
-									}else{
+									} else {
 										ctrl.animate(event.key);
 									}
-								}else{
+								} else {
 									ctrl.error(i);
 								}
 							}, 210 * i);
 						})(i);
 					}
 				},
-				"parse": function(command){
+				"parse": function(command) {
 					var event = {};
 					var match = "";
-					for(var i = 0;i < this.regs.length;i++){
+					for(var i = 0; i < this.regs.length; i++) {
 						match = command.match(this.regs[i]);
-						if(match){
-							if(!isNaN(parseInt(match.slice(-1)))){ // 判断是否包含 步数
+						if(match) {
+							if(!isNaN(parseInt(match.slice(-1)))) { // 判断是否包含 步数
 								// 获取步数
 								event.step = parseInt(match.pop());
 								// 获取命令
-								event.key = match[0].replace(event.step,"").replace(/^\s+|\s+$/g, "");
-							}else{
+								event.key = match[0].replace(event.step, "").replace(/^\s+|\s+$/g, "");
+							} else {
 								// 获取步数
 								event.step = false;
 								// 获取命令
@@ -220,25 +239,28 @@
 					var errorLine = document.querySelectorAll('.code-pnl ul li');
 					errorLine[i].classList.add("error");
 				},
-				"go": function(step) {
+				"go": function(step,drct) {
 					var top = box.el.offsetTop;
 					var left = box.el.offsetLeft;
 					var flag = false;
 					if(!step) {
 						step = 1;
 					}
-					switch(box.direction) {
+					if(!drct && drct != 0){
+						drct = box.direction;
+					}
+					switch(drct) {
 						case 3: // 向左移动
-							left - 50 * step < 0 ? (flag = true) : (box.el.style.left = left - 50 * step + "px");
+							left - 30 * step < 0 - 2 ? (flag = true) : (box.el.style.left = left - 30 * step + "px");
 							break;
 						case 0: // 向上移动
-							top - 50 * step < 0 ? (flag = true) : (box.el.style.top = top - 50 * step + "px");
+							top - 30 * step < 0 - 15 ? (flag = true) : (box.el.style.top = top - 30 * step + "px");
 							break;
 						case 1: // 向右移动
-							left + 50 * step >= 500 ? (flag = true) : (box.el.style.left = left + 50 * step + "px");
+							left + 30 * step >= 600 - 2 ? (flag = true) : (box.el.style.left = left + 30 * step + "px");
 							break;
 						case 2: // 向下移动
-							top + 50 * step >= 500 ? (flag = true) : (box.el.style.top = top + 50 * step + "px");
+							top + 30 * step >= 600 - 15 ? (flag = true) : (box.el.style.top = top + 30 * step + "px");
 							break;
 					}
 					if(flag) {
@@ -246,6 +268,7 @@
 					};
 				},
 				"tun": function(drct) {
+					// 确定方向
 					switch(drct) {
 						case "left":
 							box.direction - 1 < 0 ? box.direction = 3 : box.direction--;
@@ -261,97 +284,77 @@
 							box.rotate += 180;
 							break;
 					}
-					box.el.style.transform = "rotate(" + box.rotate + "deg)";
+					this.onDrctChange();
 				},
 				"tra": function(drct, step) {
-					var top = box.el.offsetTop;
-					var left = box.el.offsetLeft;
-					var flag = false;
-					if(!step) {
-						step = 1;
-					}
-					switch(drct) {
-						case "left":
-							left - 50 * step < 0 ? (flag = true) : (box.el.style.left = left - 50 * step + "px");
-							break;
-						case "top":
-							top - 50 * step < 0 ? (flag = true) : (box.el.style.top = top - 50 * step + "px");
-							break;
-						case "right":
-							left + 50 * step >= 500 ? (flag = true) : (box.el.style.left = left + 50 * step + "px");
-							break;
-						case "bottom":
-							top + 50 * step >= 500 ? (flag = true) : (box.el.style.top = top + 50 * step + "px");
-							break;
-					}
-					if(flag) {
-						console.log("碰到墙壁了")
-					};
+					// 转换方向
+					drct = this.drctFormat(drct,"number");
+					// 移动
+					this.go(step,drct);
 				},
 				"move": function(drct, step) {
+					// 记录方向
+					box.direction = this.drctFormat(drct,"number");
 					// 改变方向
-					switch(drct) {
-						case "left":
-							switch(box.direction) {
-								case 0:
-									box.rotate -= 90;
-									break;
-								case 1:
-									box.rotate -= 180;
-									break;
-								case 2:
-									box.rotate += 90;
-									break;
-							}
-							box.direction = 3;
-							break;
-						case "top":
-							switch(box.direction) {
-								case 1:
-									box.rotate -= 90;
-									break;
-								case 2:
-									box.rotate -= 180;
-									break;
-								case 3:
-									box.rotate += 90;
-									break;
-							}
-							box.direction = 0;
-							break;
-						case "right":
-							switch(box.direction) {
-								case 0:
-									box.rotate += 90;
-									break;
-								case 2:
-									box.rotate -= 90;
-									break;
-								case 3:
-									box.rotate -= 180;
-									break;
-							}
-							box.direction = 1;
-							break;
-						case "bottom":
-							switch(box.direction) {
-								case 0:
-									box.rotate -= 180;
-									break;
-								case 1:
-									box.rotate += 90;
-									break;
-								case 3:
-									box.rotate -= 90;
-									break;
-							}
-							box.direction = 2;
-							break;
-					}
-					// 旋转角度
-					box.el.style.transform = "rotate(" + box.rotate + "deg)";
+					this.onDrctChange();
 					// 移动
 					this.tra(drct, step);
+				},
+				"drctFormat": function(value,type){
+					switch(type){
+						case "number": // 数字
+							if([3,"left","LEF"].contains(value)){
+								return 3;
+							}else if([0,"top","TOP"].contains(value)){
+								return 0;
+							}else if([1,"right","RIG"].contains(value)){
+								return 1;
+							}else if([2,"bottom","BOT"].contains(value)){
+								return 2;
+							}
+							break;
+						case "lowerCase": // 小写字母
+							if([3,"left","LEF"].contains(value)){
+								return "left";
+							}else if([0,"top","TOP"].contains(value)){
+								return "top";
+							}else if([1,"right","RIG"].contains(value)){
+								return "right";
+							}else if([2,"bottom","BOT"].contains(value)){
+								return "bottom";
+							}
+							break;
+						case "upperCase": // 大写字母
+							if([3,"left","LEF"].contains(value)){
+								return "LEF";
+							}else if([0,"top","TOP"].contains(value)){
+								return "TOP";
+							}else if([1,"right","RIG"].contains(value)){
+								return "RIG";
+							}else if([2,"bottom","BOT"].contains(value)){
+								return "BOT";
+							}
+							break;
+					}
+					return false;
+				},
+				"onDrctChange":function(){
+					// 改变行走图方向
+					box.el.classList = ["box"];
+					switch(box.direction) {
+						case 3:
+							box.el.classList.add("lef");
+							break;
+						case 0:
+							box.el.classList.add("top");
+							break;
+						case 1:
+							box.el.classList.add("rig");
+							break;
+						case 2:
+							box.el.classList.add("bot");
+							break;
+					}
 				}
 			}
 			ctrl.init();
