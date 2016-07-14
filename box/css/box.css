@@ -7,6 +7,9 @@ html {
   font-size: 16px;
   font-family: "微软雅黑", sans-serif;
 }
+body {
+  background-color: #ddd;
+}
 input,
 textarea,
 button,
@@ -23,8 +26,9 @@ p {
   margin: 0;
 }
 .g-pnl {
-  width: 940px;
+  width: 1260px;
   margin: 20px auto;
+  background-color: #fff2e9;
   position: relative;
   overflow: hidden;
 }
@@ -48,74 +52,127 @@ p {
 }
 .g-pnl .left-pnl {
   float: left;
+  position: relative;
+}
+.g-pnl .left-pnl .cmd-tip {
+  top: 0;
+  right: 0;
+  width: 840px;
+  height: 840px;
+  position: absolute;
+  overflow: hidden;
+  -webkit-transition: 200ms;
+          transition: 200ms;
+}
+.g-pnl .left-pnl .cmd-tip ul {
+  width: 100%;
+  height: 100%;
+  padding: 40px;
+  z-index: 1;
+  font-size: 18px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+}
+.g-pnl .left-pnl .cmd-tip ul label {
+  width: 7em;
+  display: inline-block;
+}
+.g-pnl .left-pnl .cmd-tip ul em {
+  color: #ADFF2F;
+  font-style: normal;
+}
+.g-pnl .left-pnl .cmd-tip .btn-close {
+  top: 4px;
+  right: 4px;
+  width: 32px;
+  height: 32px;
+  z-index: 2;
+  background-color: #fff;
+  background-image: url("../img/close.png");
+  display: inline-block;
+  position: absolute;
+}
+.g-pnl .left-pnl .cmd-tip .btn-close:hover {
+  cursor: pointer;
+  background-color: orangered;
 }
 .g-pnl .left-pnl .x-coordinate {
-  height: 30px;
-  line-height: 30px;
-  padding-left: 30px;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 40px;
   position: relative;
   overflow: hidden;
 }
 .g-pnl .left-pnl .x-coordinate li {
-  width: 30px;
+  width: 40px;
   height: 100%;
   float: left;
   text-align: center;
 }
 .g-pnl .left-pnl .y-coordinate {
-  width: 30px;
-  line-height: 30px;
+  width: 40px;
+  line-height: 40px;
   position: relative;
   overflow: hidden;
   float: left;
 }
 .g-pnl .left-pnl .y-coordinate li {
   width: 100%;
-  height: 30px;
+  height: 40px;
   text-align: center;
 }
 .g-pnl .left-pnl .floor {
-  width: 600px;
-  height: 600px;
+  width: 800px;
+  height: 800px;
   border: 1px solid #000;
   margin: 0 auto;
   background: #fff;
   background-image: -webkit-linear-gradient(#dddddd 1px, transparent 0), -webkit-linear-gradient(0deg, #dddddd 1px, transparent 0);
   background-image: linear-gradient(#dddddd 1px, transparent 0), linear-gradient(90deg, #dddddd 1px, transparent 0);
-  background-size: 30px 30px;
+  background-size: 40px 40px;
   background-position: -1px -1px;
   position: relative;
   float: left;
 }
 .g-pnl .left-pnl .floor .box {
-  top: 45px;
-  left: 58px;
-  width: 32px;
-  height: 32px;
+  top: 80px;
+  left: 80px;
+  width: 40px;
+  height: 40px;
+  background: rgba(139, 220, 148, 0.3);
+  border-radius: 50%;
   -webkit-transition: 200ms;
           transition: 200ms;
+  position: absolute;
+}
+.g-pnl .left-pnl .floor .box .man {
+  height: 60px;
+  width: 51px;
+  left: -5px;
+  bottom: 10px;
   background-image: url("../img/man1.png");
   position: absolute;
 }
-.g-pnl .left-pnl .floor .box.lef {
+.g-pnl .left-pnl .floor .box.lef .man {
   -webkit-animation: lef 1s steps(1) infinite;
           animation: lef 1s steps(1) infinite;
 }
-.g-pnl .left-pnl .floor .box.top {
+.g-pnl .left-pnl .floor .box.top .man {
   -webkit-animation: top 1s steps(1) infinite;
           animation: top 1s steps(1) infinite;
 }
-.g-pnl .left-pnl .floor .box.rig {
+.g-pnl .left-pnl .floor .box.rig .man {
   -webkit-animation: rig 1s steps(1) infinite;
           animation: rig 1s steps(1) infinite;
 }
-.g-pnl .left-pnl .floor .box.bot {
+.g-pnl .left-pnl .floor .box.bot .man {
   -webkit-animation: bot 1s steps(1) infinite;
           animation: bot 1s steps(1) infinite;
 }
 .g-pnl .right-pnl {
-  width: 300px;
-  height: 630px;
+  width: 400px;
+  height: 830px;
   margin-left: 10px;
   text-align: center;
   overflow: hidden;
@@ -126,17 +183,18 @@ p {
   border-width: 1px;
 }
 .g-pnl .right-pnl .btn-pnl {
-  height: 50px;
-  line-height: 50px;
+  height: 40px;
+  line-height: 40px;
 }
 .g-pnl .right-pnl .code-pnl {
-  height: 580px;
+  height: 790px;
+  height: calc(100% - 40px);
   color: #fff;
   background-color: #ccc;
   overflow: hidden;
 }
 .g-pnl .right-pnl .code-pnl ul {
-  width: 30px;
+  width: 40px;
   float: left;
   position: relative;
 }
@@ -144,7 +202,8 @@ p {
   background-color: red;
 }
 .g-pnl .right-pnl .code-pnl textarea {
-  width: calc(100% - 30px);
+  width: 360px;
+  width: calc(100% - 40px);
   height: 100%;
   margin: 0;
   border: none;
@@ -155,84 +214,84 @@ p {
 }
 @-webkit-keyframes lef {
   0% {
-    background-position: 0 96px;
+    background-position: 0 180px;
   }
   25% {
-    background-position: 64px 96px;
+    background-position: 102px 180px;
   }
   50% {
-    background-position: 32px 96px;
+    background-position: 51px 180px;
   }
   75% {
-    background-position: 64px 96px;
+    background-position: 102px 180px;
   }
   100% {
-    background-position: 0 96px;
+    background-position: 0 180px;
   }
 }
 @keyframes lef {
   0% {
-    background-position: 0 96px;
+    background-position: 0 180px;
   }
   25% {
-    background-position: 64px 96px;
+    background-position: 102px 180px;
   }
   50% {
-    background-position: 32px 96px;
+    background-position: 51px 180px;
   }
   75% {
-    background-position: 64px 96px;
+    background-position: 102px 180px;
   }
   100% {
-    background-position: 0 96px;
+    background-position: 0 180px;
   }
 }
 @-webkit-keyframes top {
   0% {
-    background-position: 0 32px;
+    background-position: 0 60px;
   }
   25% {
-    background-position: 64px 32px;
+    background-position: 102px 60px;
   }
   50% {
-    background-position: 32px 32px;
+    background-position: 51px 60px;
   }
   75% {
-    background-position: 64px 32px;
+    background-position: 102px 60px;
   }
   100% {
-    background-position: 0 32px;
+    background-position: 0 60px;
   }
 }
 @keyframes top {
   0% {
-    background-position: 0 32px;
+    background-position: 0 60px;
   }
   25% {
-    background-position: 64px 32px;
+    background-position: 102px 60px;
   }
   50% {
-    background-position: 32px 32px;
+    background-position: 51px 60px;
   }
   75% {
-    background-position: 64px 32px;
+    background-position: 102px 60px;
   }
   100% {
-    background-position: 0 32px;
+    background-position: 0 60px;
   }
 }
 @-webkit-keyframes rig {
   0% {
-    background-position: 0 64px;
+    background-position: 0 120px;
   }
   25% {
-    background-position: 64px 64px;
+    background-position: 102px 120px;
   }
   50% {
-    background-position: 32px 64px;
+    background-position: 51px 120px;
   }
   75% {
-    background-position: 64px 64px;
+    background-position: 102px 120px;
   }
   100% {
     background-position: 0 64px;
@@ -240,16 +299,16 @@ p {
 }
 @keyframes rig {
   0% {
-    background-position: 0 64px;
+    background-position: 0 120px;
   }
   25% {
-    background-position: 64px 64px;
+    background-position: 102px 120px;
   }
   50% {
-    background-position: 32px 64px;
+    background-position: 51px 120px;
   }
   75% {
-    background-position: 64px 64px;
+    background-position: 102px 120px;
   }
   100% {
     background-position: 0 64px;
@@ -260,13 +319,13 @@ p {
     background-position: 0 0;
   }
   25% {
-    background-position: 64px 0;
+    background-position: 102px 0;
   }
   50% {
-    background-position: 32px 0;
+    background-position: 51px 0;
   }
   75% {
-    background-position: 64px 0;
+    background-position: 102px 0;
   }
   100% {
     background-position: 0 0;
@@ -277,13 +336,13 @@ p {
     background-position: 0 0;
   }
   25% {
-    background-position: 64px 0;
+    background-position: 102px 0;
   }
   50% {
-    background-position: 32px 0;
+    background-position: 51px 0;
   }
   75% {
-    background-position: 64px 0;
+    background-position: 102px 0;
   }
   100% {
     background-position: 0 0;
