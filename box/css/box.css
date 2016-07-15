@@ -56,7 +56,7 @@ p {
 }
 .g-pnl .left-pnl .cmd-tip {
   top: 0;
-  right: 0;
+  right: 0px;
   width: 840px;
   height: 840px;
   position: absolute;
@@ -68,7 +68,7 @@ p {
   width: 100%;
   height: 100%;
   padding: 40px;
-  z-index: 1;
+  z-index: 2;
   font-size: 18px;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.7);
@@ -82,12 +82,21 @@ p {
   color: #ADFF2F;
   font-style: normal;
 }
+.g-pnl .left-pnl .cmd-tip ul img {
+  width: 600px;
+  margin: 10px 0;
+}
+.g-pnl .left-pnl .cmd-tip ul li:first-child {
+  height: 2em;
+  font-size: 1.2em;
+  color: #f60;
+}
 .g-pnl .left-pnl .cmd-tip .btn-close {
   top: 4px;
   right: 4px;
   width: 32px;
   height: 32px;
-  z-index: 2;
+  z-index: 3;
   background-color: #fff;
   background-image: url("../img/close.png");
   display: inline-block;
@@ -95,7 +104,16 @@ p {
 }
 .g-pnl .left-pnl .cmd-tip .btn-close:hover {
   cursor: pointer;
-  background-color: orangered;
+  -webkit-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+          transform: scale(1.2);
+  -webkit-transition: -webkit-transform 200ms;
+          transition: transform 200ms;
+}
+.g-pnl .left-pnl .cmd-tip .bg-man {
+  right: -200px;
+  z-index: 1;
+  position: absolute;
 }
 .g-pnl .left-pnl .x-coordinate {
   height: 40px;
@@ -136,14 +154,14 @@ p {
   float: left;
 }
 .g-pnl .left-pnl .floor .box {
-  top: 80px;
-  left: 80px;
+  top: 0px;
+  left: 0px;
   width: 40px;
   height: 40px;
   background: rgba(139, 220, 148, 0.3);
   border-radius: 50%;
-  -webkit-transition: 200ms;
-          transition: 200ms;
+  -webkit-transition: 150ms;
+          transition: 150ms;
   position: absolute;
 }
 .g-pnl .left-pnl .floor .box .man {
@@ -151,6 +169,7 @@ p {
   width: 51px;
   left: -5px;
   bottom: 10px;
+  z-index: 1;
   background-image: url("../img/man1.png");
   position: absolute;
 }
@@ -169,6 +188,42 @@ p {
 .g-pnl .left-pnl .floor .box.bot .man {
   -webkit-animation: bot 1s steps(1) infinite;
           animation: bot 1s steps(1) infinite;
+}
+.g-pnl .left-pnl .floor .box .think {
+  top: -55px;
+  left: -3px;
+  height: 20px;
+  width: 46px;
+  padding: 5px;
+  z-index: 1;
+  border-radius: 10px;
+  background-color: #000;
+  position: absolute;
+  display: none;
+}
+.g-pnl .left-pnl .floor .box .think div {
+  width: 8px;
+  height: 8px;
+  margin: 2px 0 0 3px;
+  border-radius: 5px;
+  background-color: #fff;
+  float: left;
+  -webkit-animation: bouncedelay 1s infinite ease-in-out;
+          animation: bouncedelay 1s infinite ease-in-out;
+}
+.g-pnl .left-pnl .floor .box .think div.think1 {
+  -webkit-animation-delay: -0.32s;
+          animation-delay: -0.32s;
+}
+.g-pnl .left-pnl .floor .box .think div.think2 {
+  -webkit-animation-delay: -0.16s;
+          animation-delay: -0.16s;
+}
+.g-pnl .left-pnl .floor .wall {
+  width: 40px;
+  height: 40px;
+  background-color: #000;
+  position: absolute;
 }
 .g-pnl .right-pnl {
   width: 400px;
@@ -346,5 +401,29 @@ p {
   }
   100% {
     background-position: 0 0;
+  }
+}
+@-webkit-keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+  40% {
+    -webkit-transform: translate(0, -8px);
+            transform: translate(0, -8px);
+  }
+}
+@keyframes bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: translate(0, 0);
+            transform: translate(0, 0);
+  }
+  40% {
+    -webkit-transform: translate(0, -8px);
+            transform: translate(0, -8px);
   }
 }
