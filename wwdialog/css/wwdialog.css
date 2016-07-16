@@ -1,0 +1,113 @@
+.btn-close {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  cursor: pointer;
+  -webkit-transition: 200ms;
+          transition: 200ms;
+  display: none;
+  z-index: 1;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.black-shadow, .black-shadow div {
+    box-sizing: border-box;
+}
+.black-shadow {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  overflow: hidden;
+  font-size: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.white-content {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background-color: #fff;
+  font-size: 16px;
+}
+.white-content select {
+  width: 290px;
+  height: 54px;
+  font-size: inherit;
+  padding: 0 20px;
+  margin-left: 15px;
+  /*Chrome和Firefox里面的边框是不一样的，所以复写了一下*/
+  border: solid 1px #c3c3c3;
+  /*很关键：将默认的select选择框样式清除*/
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  /*在选择框的最右侧中间显示小箭头图片*/
+  background: url("../../images/select-arrow.png") no-repeat scroll right center transparent;
+  background-origin: content-box;
+}
+.white-content .white-top,
+.white-content .white-bottom {
+  height: 67px;
+  line-height: 67px;
+  width: 100%;
+  padding: 0 10px;
+  font-size: 16px;
+  position: relative;
+}
+.white-content .white-center {
+  overflow: auto;
+  width: 100%;
+  height: calc(100% - 2rem);
+  padding: 10px;
+}
+.white-content .white-top {
+  border-bottom: 1px solid #c3c3c3;
+}
+.white-content .white-bottom {
+  border-top: 1px solid #c3c3c3;
+  position: absolute;
+  bottom: 0;
+}
+.white-content .white-bottom a {
+  color: #7fc966;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.white-content .white-bottom a:hover {
+  color: #45BF1B;
+}
+.white-content .btn-close-dialog {
+  width: 67px;
+  height: 67px;
+  text-align: center;
+  font-size: .25rem;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+  background-image: url("../img/close.png");
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  background-position: center;
+  -webkit-transition: 200ms;
+          transition: 200ms;
+}
+.white-content .btn-close-dialog:hover {
+	background-color: #ddd;
+}
+.blur {
+  -webkit-filter: blur(10px);
+  /* Chrome, Opera */
+  -moz-filter: blur(10px);
+  -ms-filter: blur(10px);
+  filter: blur(10px);
+}
