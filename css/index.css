@@ -1,0 +1,94 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+html {
+  font-size: 16px;
+  font-family: "微软雅黑", sans-serif;
+}
+input,
+textarea,
+button,
+a {
+  font-size: inherit;
+  font-family: inherit;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+p {
+  margin: 0;
+}
+a {
+  color: #2d2d2d;
+  text-decoration: none;
+}
+a:hover {
+  cursor: pointer;
+}
+.warp {
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.warp .work-list li {
+  width: 250px;
+  height: 200px;
+  margin: 20px;
+  line-height: 200px;
+  box-shadow: 0 1px 5px 0 #000;
+  background-color: #c7f2ff;
+  background-image: -webkit-linear-gradient(#c7f2ff, #6b98e8);
+  background-image: linear-gradient(#c7f2ff, #6b98e8);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  float: left;
+  -webkit-transition: -webkit-transform 300ms;
+          transition: transform 300ms;
+}
+.warp .work-list li:hover .pop {
+  top: 0;
+}
+.warp .work-list li.work-github {
+  background-image: url(../img/github.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.warp .work-list li.work-box {
+  width: 300px;
+  height: 300px;
+  background-image: url(../img/box.jpg);
+  background-repeat: no-repeat;
+  background-size: 120% 120%;
+  background-position: center center;
+}
+.warp .work-list li.work-box .pop {
+  padding: 30px;
+  line-height: 1em;
+}
+.warp .work-list li.work-box .pop p {
+  margin-top: 30px;
+}
+.warp .work-list li a {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+}
+.warp .work-list li .pop {
+  top: 100%;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  -webkit-transition: 200ms;
+          transition: 200ms;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+}
