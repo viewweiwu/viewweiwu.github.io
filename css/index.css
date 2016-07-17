@@ -64,10 +64,6 @@ a:hover {
 .warp .work-list li.work-box {
   width: 300px;
   height: 300px;
-  background-image: url(../img/box.jpg);
-  background-repeat: no-repeat;
-  background-size: 120% 120%;
-  background-position: center center;
 }
 .warp .work-list li.work-box .pop {
   padding: 30px;
@@ -80,6 +76,10 @@ a:hover {
   width: 100%;
   height: 100%;
   display: inline-block;
+}
+.warp .work-list li a img {
+  width: 100%;
+  height: 100%;
 }
 .warp .work-list li .pop {
   top: 100%;
