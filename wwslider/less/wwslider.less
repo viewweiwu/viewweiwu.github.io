@@ -1,0 +1,110 @@
+@light-green-color: #ddd; //淡绿色
+@hover-green-color: #6cf; //悬浮时的绿色
+
+.noselect(){
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none;
+}
+.slide-pnl {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    position: relative;
+    background-color: @light-green-color;
+    overflow: hidden;
+    .slide-ul {
+        width: 300%;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        li {
+            width: 33%;
+            height: 100%;
+            float: left;
+            list-style: none;
+            img {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                .noselect();
+            }
+        }
+    }
+    .lt,
+    .gt {
+        width: 30px;
+        height: 50px;
+        top: 0;bottom: 0;
+        margin: auto;
+        display: inline-block;
+        position: absolute;
+        cursor: pointer;
+        background-color: rgba(255,255,255,.8);
+        background-size: 50% 60%;
+        background-repeat: no-repeat;
+        background-position: center;
+        &:hover{
+            background-color: #fff;
+        }
+    }
+    .lt {
+        left: 0;
+        background-image: url("../img/wwslider-lt.png");
+    }
+    .gt {
+        right: 0;
+        background-image: url("../img/wwslider-rt.png");
+    }
+    .point-list {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: 0;
+        &.square {
+            left: 0;
+            width: 100%;
+            li {
+                width: 33%;
+                height: 15px;
+                float: left;
+                background-color: @light-green-color;
+                opacity: 0.5;
+                &.on{
+                    opacity: 1;
+                    background-color: @hover-green-color;
+                }
+            }
+        }
+        &.number {
+            right: 0;
+            li {
+                float: left;
+                width: 30px;
+                height: 30px;
+                line-height: 30px;
+                margin: 0 15px 15px 0;
+                font-size: 20px;
+                background-color: rgba(0,0,0,.5);
+                &.on{
+                    border-color: @hover-green-color;
+                    background-color: @hover-green-color;
+                }
+            }
+        }
+        li {
+            border: 1px solid white;
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            .noselect();
+        }
+    }
+}
