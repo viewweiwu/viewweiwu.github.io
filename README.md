@@ -1,2 +1,1 @@
-# viewweiwu.github.io
-nihao
+# 拟好哇
