@@ -136,6 +136,10 @@
 					<div class="scroll-ol">
 						<p>冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了</p>
 						<p>冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了</p>
+						<p>冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了</p>
+						<p>冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了</p>
+						<p>冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了</p>
+						<p>冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了冬天来了</p>
 					</div>
 				</div>
 
@@ -270,6 +274,14 @@
 					getAnchorPosition: function(index) {
 						return this.$anchor.eq(index).position().top;
 					},
+					getAllAnchorPosition: function(){
+						var self = this,
+								allPositionArr = [];
+						for(var i = 0;i < self.$anchor.length;i++){
+							allPositionArr.push(self.$cont[0].scrollTop + self.getAnchorPosition(i));
+						}
+						return allPositionArr;
+					},
 					/*
 					 * 获取滑块儿档期那位置
 					 * */
@@ -294,7 +306,20 @@
 						return self.$bar.height() - self.$slider.height();
 					},
 					scrollTo: function(positionVal) {
-						var self = this;
+						var self = this,
+								posArr = self.getAllAnchorPosition();
+						
+						// 获取对应的与滚动内容相对应的滚动标签的索引
+						function getIndex(positionVal){
+							for(var i = posArr.length - 1; i >= 0;i--){
+								if(positionVal >= posArr[i]){
+									return i;
+								}
+							}
+						}
+						if(posArr.length == self.$tabItem.length){
+							self.changeTabSelect(getIndex(positionVal));
+						}
 						self.$cont.scrollTop(positionVal);
 					}
 				});
