@@ -114,14 +114,21 @@
 					<div class="scroll-ol">
 						<p>春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了</p>
 						<p>春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了</p>
+						<p>春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了</p>
+						<p>春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了春天来了</p>
 					</div>
 					<h3 class="anchor">夏天来了</h3>
 					<div class="scroll-ol">
 						<p>夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了</p>
 						<p>夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了</p>
+						<p>夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了</p>
+						<p>夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了</p>
+						<p>夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了夏天来了</p>
 					</div>
 					<h3 class="anchor">秋天来了</h3>
 					<div class="scroll-ol">
+						<p>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</p>
+						<p>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</p>
 						<p>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</p>
 						<p>秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了秋天来了</p>
 					</div>
@@ -148,6 +155,9 @@
 							contSelector: "", // 滚动内容区域选择器
 							barSelector: "", // 滚动条选择器
 							sliderSelector: "", // 滚动滑块儿选择器
+							tabItemSelector: ".tab-item", // 标签选择器
+							tabActiveClass: "tab-active", // 选中标签名
+							anchorSelector: ".anchor", // 正题选择器
 							wheelStep: 20 // 滚动步长
 						}
 
@@ -166,9 +176,11 @@
 						this.$cont = $(opts.contSelector);
 						this.$slider = $(opts.sliderSelector);
 						this.$bar = opts.barSelector ? $(opts.barSelector) : self.parent();
+						this.$tabItem = $(opts.tabItemSelector);
+						this.$anchor = $(opts.anchorSelector);
 						this.$dom = $(dom);
 
-						this._initSliderDragEvent()._bindContScroll()._bindMousewheel();
+						this._iniTabEvent()._initSliderDragEvent()._bindContScroll()._bindMousewheel();
 					},
 					/*
 					 * 初始化拖块儿功能
@@ -210,6 +222,25 @@
 
 						return this;
 					},
+					/*
+					 * 初始化标签切换功能
+					 * */
+					_iniTabEvent: function() {
+						var self = this;
+						self.$tabItem.on("click", function(e) {
+							e.preventDefault();
+							var index = $(this).index();
+							self.changeTabSelect(index);
+							// 滚动到指定高度
+							self.scrollTo(self.$cont[0].scrollTop + self.getAnchorPosition(index));
+						});
+						return self;
+					},
+					changeTabSelect: function(index) {
+						var self = this,
+							active = self.options.tabActiveClass;
+						return self.$tabItem.eq(index).addClass(active).siblings().removeClass(active);
+					},
 					/**
 					 * 监听内容滚动，滑块儿同步位置
 					 */
@@ -232,6 +263,12 @@
 							self.scrollTo(self.$cont[0].scrollTop + wheelRange * self.options.wheelStep);
 						});
 						return self;
+					},
+					/*
+					 * 获取指定锚点的上边距像素值
+					 * */
+					getAnchorPosition: function(index) {
+						return this.$anchor.eq(index).position().top;
 					},
 					/*
 					 * 获取滑块儿档期那位置
@@ -261,9 +298,9 @@
 						self.$cont.scrollTop(positionVal);
 					}
 				});
-//				CusScollBar.prototype._init = function(){
-//					console.log("1");
-//				}
+				//				CusScollBar.prototype._init = function(){
+				//					console.log("1");
+				//				}
 				win.CusScollBar = CusScollBar;
 			})(window, document, jQuery);
 
