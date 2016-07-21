@@ -1,0 +1,82 @@
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+}
+html {
+    font-size: 16px;
+    font-family: "微软雅黑",sans-serif;
+}
+input,
+textarea,
+button,
+a {
+    font-size: inherit;
+    font-family: inherit;
+}
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+p {
+    margin: 0;
+}
+a {
+    color: #2d2d2d;
+    text-decoration: none;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.warp {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    .work-list {
+        li {
+            width: 250px;
+            height: 200px;
+            margin: 20px;
+            line-height: 200px;
+            box-shadow: 0 1px 5px 0 #000;
+            background-color: #c7f2ff;
+            background-image: linear-gradient(#c7f2ff,#6b98e8);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            float: left;
+            transition: transform 300ms;
+            &:hover{
+                .pop {
+                    top: 0;
+                }
+            }
+            &.work-github {
+                background-image: url(../img/github.png);
+                background-repeat: no-repeat;
+                background-position: center center;
+            }
+            a {
+                width: 100%;
+                height: 100%;
+                display: inline-block;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .pop {
+                top: 100%;
+                width: 100%;
+                height: 100%;
+                font-size: 18px;
+                transition: 200ms;
+                color: #fff;
+                background-color: rgba(0,0,0,.7);
+                position: absolute;
+            }
+        }
+    }
+}
