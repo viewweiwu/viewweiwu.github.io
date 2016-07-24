@@ -4,8 +4,14 @@
   box-sizing: border-box;
 }
 html {
+  height: 100%;
   font-size: 16px;
   font-family: "微软雅黑", sans-serif;
+}
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 input,
 textarea,
@@ -23,17 +29,143 @@ p {
   margin: 0;
 }
 a {
-  color: #2d2d2d;
+  color: inherit;
   text-decoration: none;
 }
 a:hover {
   cursor: pointer;
 }
+figure,
+h2 {
+  margin: 0;
+}
+img,
+figcaption {
+  vertical-align: top;
+}
 .warp {
-  top: 50%;
-  left: 50%;
+  max-width: 1000px;
+  height: 100%;
+  margin: 0 auto;
+}
+.warp figure {
+  width: 33.33%;
+  background-color: #c7f2ff;
+  position: relative;
+  overflow: hidden;
+  float: left;
+  -webkit-transition: 500ms;
+          transition: 500ms;
+  -webkit-transition-delay: 200ms;
+          transition-delay: 200ms;
+}
+@media screen and (max-width: 768px) and (min-width: 501px) {
+  .warp figure {
+    font-size: 0.8em;
+    width: 50%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .warp figure {
+    width: 100%;
+  }
+}
+.warp figure:before {
+  content: "";
+  display: inline-block;
+  padding-bottom: 100%;
+  width: 1px;
+}
+.warp figure.animate1 {
+  text-align: center;
+}
+.warp figure.animate1:hover {
+  background-color: #91fff3;
+}
+.warp figure.animate1:hover img {
+  -webkit-transform: translateY(-30px);
+      -ms-transform: translateY(-30px);
+          transform: translateY(-30px);
+}
+.warp figure.animate1:hover h2 {
+  bottom: 0;
+}
+.warp figure.animate1 img {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
   position: absolute;
-  transform: translate(-50%, -50%);
+}
+.warp figure.animate1 h2 {
+  width: 100%;
+  bottom: -100%;
+  padding: 5% 0;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  -webkit-transition: 300ms;
+          transition: 300ms;
+  -webkit-transition-delay: 100ms;
+          transition-delay: 100ms;
+}
+.warp figure.animate2 {
+  color: #fff;
+}
+.warp figure.animate2 img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+}
+.warp figure.animate2 figcaption {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 10px;
+  opacity: 0;
+  z-index: 1;
+  border: 2px solid #fff;
+  position: absolute;
+  -webkit-transition: 300ms;
+          transition: 300ms;
+}
+.warp figure.animate2:hover {
+  background-color: #000000;
+}
+.warp figure.animate2:hover img {
+  -webkit-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+          transform: scale(1.2);
+  opacity: 0.7;
+}
+.warp figure.animate2:hover figcaption {
+  width: 80%;
+  height: 80%;
+  margin: 10% 0 0 10%;
+  opacity: 1;
+}
+.warp figure a {
+  height: 100%;
+  display: block;
+}
+.warp figure img {
+  -webkit-transition: 300ms;
+          transition: 300ms;
+}
+.warp figure h2 {
+  font-size: 20px;
+}
+.warp figure p {
+  font-size: 16px;
+}
+.warp figure .content {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
 }
 .warp .work-list li {
   width: 250px;
@@ -42,18 +174,20 @@ a:hover {
   line-height: 200px;
   box-shadow: 0 1px 5px 0 #000;
   background-color: #c7f2ff;
+  background-image: -webkit-linear-gradient(#c7f2ff, #6b98e8);
   background-image: linear-gradient(#c7f2ff, #6b98e8);
   text-align: center;
   position: relative;
   overflow: hidden;
   float: left;
-  transition: transform 300ms;
+  -webkit-transition: -webkit-transform 300ms;
+          transition: transform 300ms;
 }
 .warp .work-list li:hover .pop {
   top: 0;
 }
 .warp .work-list li.work-github {
-  background-image: url(../img/github.png);
+  background-image: url("../img/github.png");
   background-repeat: no-repeat;
   background-position: center center;
 }
@@ -71,9 +205,9 @@ a:hover {
   width: 100%;
   height: 100%;
   font-size: 18px;
-  transition: 200ms;
+  -webkit-transition: 200ms;
+          transition: 200ms;
   color: #fff;
   background-color: rgba(0, 0, 0, 0.7);
   position: absolute;
 }
-/*# sourceMappingURL=index.css.map */
