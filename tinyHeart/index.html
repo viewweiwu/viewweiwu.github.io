@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>爱心鱼</title>
+		<style type="text/css">
+			.all-bg {
+				width: 800px;
+				height: 600px;
+				margin: 20px auto;
+				background-color: #ddd;
+			}
+			
+			#allCanvas {
+				width: 800px;
+				height: 600px;
+				position: relative;
+			}
+			
+			canvas {
+				top: 0;
+				left: 0;
+				position: absolute;
+			}
+			
+			#canvas1 {
+				z-index: 1;
+			}
+			
+			#canvas2 {
+				z-index: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="all-bg">
+			<div id="allCanvas">
+				<canvas id="canvas1" width="800" height="600"></canvas>
+				<canvas id="canvas2" width="800" height="600"></canvas>
+			</div>
+		</div>
+		<script src="js/commonFunctions.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bg.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/ane.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/fruit.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mom.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/collision.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/baby.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/data.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/wave.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/halo.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/dust.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>
