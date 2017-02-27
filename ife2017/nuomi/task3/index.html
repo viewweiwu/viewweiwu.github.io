@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script>
+        class Event {
+            constructor() {
+                this.events = {};
+            }
+            on(attr, callback) {
+                if (this.events[attr]) {
+                    this.events[attr].push(callback);
+                } else {
+                    this.events[attr] = [callback];
+                }
+            }
+            off(attr) {
+                for (let key in this.evnets) {
+                    if (this.events.hasOwnProperty(key) && key === attr) {
+                        delete this.events[key];
+                    }
+                }
+            }
+            emit(attr, ...arg) {
+                (this.events[attr] || []).forEach((item) => {
+                    item(...arg);
+                });
+            }
+        }
+
+        class Observer {
+            constructor(o) {
+                this.eventBus = new Event();
+                this.data = new Proxy(o, {
+                    get: (target, key, receiver) => {
+                        // console.log(`你访问了 ${key}`);
+                        return Reflect.get(target, key, receiver);
+                    },
+                    set: (target, key, value, receiver) => {
+                        // console.log(`你设置了 ${key}!,新的值为 ${value}`);
+                        this.eventBus.emit(key, target[key], value);
+                        return Reflect.set(target, key, value, receiver);
+                    }
+                });
+            }
+            $watch(attr, callback) {
+                this.eventBus.on(attr, callback.bind(this));
+            }
+        }
+
+        let app1 = new Observer({
+            name: 'youngwind',
+            age: 25,
+            user: {
+                name: "view"
+            }
+        });
+
+        app1.user.$watch('name', function(oldVal, newVal) {
+            console.log(`我的值变了，之前是 ${oldVal} ,现在是 ${newVal} `);
+        });
+
+        app1.data.age = "ll"; // 你设置了 age，新的值为100
+    </script>
+</body>
+
+</html>
