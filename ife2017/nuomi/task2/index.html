@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <script>
+        // class Observer {
+        //     constructor(data) {
+        //         this.data = data;
+        //         this.walk(data);
+        //     }
+        //     walk(obj) {
+        //         for (let key in obj) {
+        //             let val = obj[key];
+        //             if (typeof val === 'object') {
+        //                 new Observer(val);
+        //             }
+
+        //             this.convert(key, val);
+        //         }
+        //     }
+        //     convert(key, value) {
+        //         Object.defineProperty(this.data, key, {
+        //             enumerable: true,
+        //             configurable: true,
+        //             get: () => {
+        //                 console.log('你访问了 ' + key);
+        //             },
+        //             set: (newVal) => {
+        //                 console.log('你设置了 ' + key + '，新的值为 ' + value);
+        //                 newVal !== value && (value = newVal);
+        //             }
+        //         });
+        //     }
+        // }
+
+        function Observer(o) {
+            this.data = new Proxy(o, {
+                get: (target, key, receiver) => {
+                    console.log(`你访问了 ${key}`);
+                    return Reflect.get(target, key, receiver);
+                },
+                set: (target, key, value, receiver) => {
+                    console.log(`你设置了 ${key}!,新的值为 ${value}`);
+                    return Reflect.set(target, key, value, receiver);
+                }
+            });
+        }
+
+        let app1 = new Observer({
+            name: 'youngwind',
+            age: 25
+        });
+
+        let app2 = new Observer({
+            university: 'bupt',
+            major: 'computer'
+        });
+
+        // 要实现的结果如下：
+        app1.data.name // 你访问了 name
+        app1.data.age = 100; // 你设置了 age，新的值为100
+        app2.data.university // 你访问了 university
+        app2.data.major = 'science' // 你设置了 major，新的值为 science
+    </script>
+</body>
+
+</html>
