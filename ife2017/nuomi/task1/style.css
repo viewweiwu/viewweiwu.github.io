@@ -1,0 +1,81 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background-color: #333333;
+  overflow: hidden;
+}
+figure {
+  width: 500px;
+  height: 400px;
+  margin: 100px auto;
+  position: relative;
+  overflow: hidden;
+}
+figure img {
+  width: 100%;
+  height: 100%;
+  transition: 500ms;
+}
+figure:hover img {
+  filter: blur(10px);
+}
+figure:hover figcaption {
+  transform: translate(0, 0);
+}
+figure:hover figcaption:before {
+  height: 100%;
+}
+figure:hover figcaption:after {
+  width: 100%;
+}
+figure figcaption {
+  top: 10%;
+  left: 10%;
+  width: 80%;
+  height: 80%;
+  font-size: 30px;
+  color: transparent;
+  background-color: rgba(255, 255, 255, 0.3);
+  background-image: -webkit-linear-gradient(left, #ffffff, #66ccff, #ff6600, #ff0066, #ffffff);
+  -webkit-background-clip: text;
+  background-size: 300% 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(200%, 200%);
+  animation: colourful 5s linear infinite alternate;
+}
+@keyframes colourful {
+  0% {
+    background-position: 0;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+figure figcaption:before,
+figure figcaption:after {
+  content: "";
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  position: absolute;
+  box-sizing: border-box;
+  transform: translate(-50%, -50%);
+  transition: 500ms;
+}
+figure figcaption:before {
+  width: 100%;
+  border-left: 2px solid #ffffff;
+  border-right: 2px solid #ffffff;
+}
+figure figcaption:after {
+  height: 100%;
+  border-top: 2px solid #ffffff;
+  border-bottom: 2px solid #ffffff;
+}
