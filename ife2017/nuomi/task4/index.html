@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .tab {
+            width: 500px;
+            padding: 50px;
+            border: 1px solid #ddd;
+            margin: 50px auto;
+        }
+        
+        .tab label {
+            width: 100%;
+            padding: 5px 10px;
+            color: #fff;
+            background-color: #6cf;
+            display: block;
+            box-sizing: border-box;
+        }
+        
+        .tab label:active {
+            background-color: #60f;
+        }
+        
+        .tab input {
+            display: none;
+        }
+        
+        .tab .panel {
+            height: 0;
+            margin-bottom: 20px;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+            transition: 500ms;
+        }
+        
+        .tab .panel:after {
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #ddd;
+            box-sizing: border-box;
+            position: absolute;
+        }
+        
+        .tab input:checked+.panel {
+            height: 200px;
+            opacity: 1;
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tab">
+        <label for="tab1">你好呀</label>
+        <input type="radio" id="tab1" name="tab" value="">
+        <div class="panel">第一页</div>
+        <label for="tab2">你好呀2</label>
+        <input type="radio" id="tab2" name="tab" value="">
+        <div class="panel">第二页</div>
+        <label for="tab3">你好呀3</label>
+        <input type="radio" id="tab3" name="tab" value="">
+        <div class="panel">第三页</div>
+    </div>
+</body>
+
+</html>
