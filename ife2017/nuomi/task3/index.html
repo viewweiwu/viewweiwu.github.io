@@ -34,18 +34,54 @@
             }
         }
 
+        // class Observer {
+        //     constructor(o) {
+        //         this.eventBus = new Event();
+        //         this.data = new Proxy(o, {
+        //             get: (target, key, receiver) => {
+        //                 console.log(`你访问了 ${key}`);
+        //                 return Reflect.get(target, key, receiver);
+        //             },
+        //             set: (target, key, value, receiver) => {
+        //                 // console.log(`你设置了 ${key}!,新的值为 ${value}`);
+        //                 this.eventBus.emit(key, target[key], value);
+        //                 return Reflect.set(target, key, value, receiver);
+        //             }
+        //         });
+        //     }
+        //     $watch(attr, callback) {
+        //         this.eventBus.on(attr, callback.bind(this));
+        //     }
+        // }
+
         class Observer {
-            constructor(o) {
+            constructor(data) {
                 this.eventBus = new Event();
-                this.data = new Proxy(o, {
-                    get: (target, key, receiver) => {
-                        // console.log(`你访问了 ${key}`);
-                        return Reflect.get(target, key, receiver);
+                this.data = data;
+                this.walk(data);
+            }
+            walk(obj) {
+                for (let key in obj) {
+                    let val = obj[key];
+                    if (typeof val === 'object') {
+                        new Observer(val);
+                    }
+
+                    this.convert(key, val);
+                }
+            }
+            convert(key, value) {
+                Object.defineProperty(this.data, key, {
+                    enumerable: true,
+                    configurable: true,
+                    get: () => {
+                        console.log('你访问了 ' + key);
+                        return value;
                     },
-                    set: (target, key, value, receiver) => {
-                        // console.log(`你设置了 ${key}!,新的值为 ${value}`);
-                        this.eventBus.emit(key, target[key], value);
-                        return Reflect.set(target, key, value, receiver);
+                    set: (newVal) => {
+                        console.log('你设置了 ' + key + '，新的值为 ' + newVal);
+                        this.eventBus.emit(key, value, newVal);
+                        newVal !== value && (value = newVal);
                     }
                 });
             }
@@ -57,16 +93,22 @@
         let app1 = new Observer({
             name: 'youngwind',
             age: 25,
-            user: {
-                name: "view"
+            a: {
+                firstName: "QAQ",
+                lastName: "www"
             }
         });
 
-        app1.user.$watch('name', function(oldVal, newVal) {
+        app1.$watch('age', function(oldVal, newVal) {
             console.log(`我的值变了，之前是 ${oldVal} ,现在是 ${newVal} `);
         });
 
-        app1.data.age = "ll"; // 你设置了 age，新的值为100
+        app1.data.age = 111; // 你设置了 age，新的值为100
+
+        app1.data.a.lastName;
+        // 这里还需要输出 '你访问了 lastName '
+        app1.data.a.firstName = 'lalala';
+        // 这里还需要输出 '你设置了firstName, 新的值为 lalala'
     </script>
 </body>
 
