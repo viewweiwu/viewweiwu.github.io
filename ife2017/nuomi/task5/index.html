@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .loading {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            position: fixed;
+        }
+        
+        .loading .border {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #f06;
+            border-top-color: transparent;
+            border-radius: 50%;
+            position: absolute;
+            box-sizing: border-box;
+            animation: rotation 5s linear infinite;
+        }
+        
+        @keyframes rotation {
+            0% {
+                transform: rotate(0)
+            }
+            100% {
+                transform: rotate(360deg)
+            }
+        }
+        
+        .loading .circle {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 150px;
+            height: 150px;
+            margin: auto;
+            border-radius: 50%;
+            background-color: greenyellow;
+            position: absolute;
+            overflow: hidden;
+        }
+        
+        .fg {
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 150px;
+            height: 150px;
+            margin: auto;
+            border-radius: 50%;
+            background-color: greenyellow;
+            z-index: -1;
+            position: absolute;
+            overflow: hidden;
+        }
+        
+        .loading .circle:before {
+            content: "";
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            border-top-right-radius: 75px;
+            border-bottom-right-radius: 75px;
+            background-color: #f06;
+            z-index: 1;
+            position: absolute;
+            transform-origin: left;
+            animation: skin 5s linear infinite;
+        }
+        
+        .loading .circle:after {
+            content: "";
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            border-top-right-radius: 75px;
+            border-bottom-right-radius: 75px;
+            background-color: #f06;
+            position: absolute;
+            transform-origin: left;
+            /*animation: skin2 5s linear infinite;
+            animation-delay: 2.5s;*/
+        }
+        
+        @keyframes skin {
+            0% {
+                transform: rotate(0);
+            }
+            50% {
+                z-index: 0;
+            }
+            100% {
+                transform: rotate(360deg);
+                z-index: 1;
+            }
+        }
+        
+        @keyframes skin2 {
+            0% {
+                transform: rotate(180);
+            }
+            50% {
+                z-index: 0;
+            }
+            100% {
+                transform: rotate(540deg);
+                z-index: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="loading">
+        <div class="border"></div>
+        <div class="circle"></div>
+        <div class="fg"></div>
+    </div>
+</body>
+
+</html>
